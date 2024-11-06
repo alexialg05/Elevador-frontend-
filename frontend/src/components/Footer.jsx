@@ -69,7 +69,7 @@ export default function Footer() {
         <div className="flex justify-between gap-x-6 md:order-2 w-full">
           <div className="flex gap-x-6">
             <p className="mt-8 text-center text-sm/6 text-gray-600 md:order-1 md:mt-0">
-              &copy; 2024 Your Company, Inc. All rights reserved.
+              &copy; 2024 Controlavator, Inc. All rights reserved.
             </p>
           </div>
           <div className="flex gap-6">

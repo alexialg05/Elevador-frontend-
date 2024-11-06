@@ -5,9 +5,9 @@ import { BellIcon, XMarkIcon } from '@heroicons/react/24/outline';
 
 const navigation = [
   { name: 'Home', href: '#' },
-  { name: 'Invoices', href: '#' },
-  { name: 'Clients', href: '#' },
-  { name: 'Expenses', href: '#' },
+  { name: 'Data', href: '#' },
+  { name: 'Users', href: '#' },
+  { name: 'Reports', href: '#' },
 ];
 
 function classNames(...classes) {
@@ -29,12 +29,12 @@ export default function Header() {
             <Bars3Icon aria-hidden="true" className="h-5 w-5 text-gray-900" />
           </button>
           <img
-            alt="Your Company"
+            alt="Controlavator"
             src="https://tailwindui.com/plus/img/logos/mark.svg?color=indigo&shade=600"
             className="h-8 w-auto"
           />
         </div>
-        <nav className="hidden md:flex md:gap-x-11 md:text-sm/6 md:font-semibold md:text-gray-700">
+        <nav className="bsolute inset-x-0 top-0 z-50 flex h-16 border-b border-gray-900/10">
           {navigation.map((item, itemIdx) => (
             <a key={itemIdx} href={item.href}>
               {item.name}
@@ -77,7 +77,7 @@ export default function Header() {
             </button>
             <div className="-ml-0.5">
               <a href="#" className="-m-1.5 block p-1.5">
-                <span className="sr-only">Your Company</span>
+                <span className="sr-only">Controlavator</span>
                 <img
                   alt=""
                   src="https://tailwindui.com/plus/img/logos/mark.svg?color=indigo&shade=600"
