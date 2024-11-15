@@ -25,3 +25,6 @@ app.use('/api/sensor', sensorRoutes);
 app.listen(5000, () => {
   console.log('Server is running on port 5000');
 });
+app.get('/', (req, res) => {
+  res.send('API is running...');
+});

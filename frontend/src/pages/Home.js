@@ -40,7 +40,7 @@ const statsDefault = [
   },
   {
     name: 'Earthquake',
-    value: '$12,787.00',
+    value: '$12,787.10',
     change: '+54.02%',
     changeType: 'negative',
   },
