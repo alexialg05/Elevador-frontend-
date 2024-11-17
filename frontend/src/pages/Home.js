@@ -17,7 +17,7 @@ import {
   PlusSmallIcon,
 } from '@heroicons/react/20/solid';
 import { BellIcon, XMarkIcon } from '@heroicons/react/24/outline';
-import { detailsSensor } from '../actions/sensorActions';
+import { listSensors } from '../actions/sensorActions';
 import { useSelector } from 'react-redux';
 
 const navigation = [
@@ -166,32 +166,38 @@ export default function Home() {
   // Vairable to display stats
   const [stats, setStats] = useState(statsDefault);
 
-  // Variable to display fetched sensor details
-  const [data, setData] = useState({});
+  // Variable to display fetched sensor list
+  const [data, setData] = useState([]);
 
-  // Fetch sensor details, from Redux store
-  const sensorDetails = useSelector((state) => state.sensorDetails);
-  const { loading, error, success, sensor } = sensorDetails;
-  console.log(sensor);
+  // Fetch sensor list from Redux store
+  const sensorList = useSelector((state) => state.sensorList);
+  const { loading, error, success, sensors } = sensorList;
+  console.log(sensors);
 
-  // Dispatch sensor details
+  // Dispatch sensor list
   const dispatch = useDispatch();
-  // Fetch sensor details
+  // Fetch sensor list
   useEffect(() => {
     if (!success && !loading && !error) {
-      dispatch(detailsSensor('sensor1'));
+      dispatch(listSensors());
     }
-    if (success) {
-      setData(sensor);
+    if (success && sensors) {
+      setData(sensors);
       // ---- Update stats ----
       const newStats = [...stats]; // Copy stats
-      newStats[0].name = sensor[0].name; // Update name
-      newStats[0].value = sensor[0].value; // Update value
-      newStats[0].change = sensor[0].unit; // Update unit
+      
+      // Update all stats based on sensors array
+      sensors.forEach((sensor, index) => {
+        if (index < newStats.length) {
+          newStats[index].name = sensor.name;
+          newStats[index].value = sensor.value;
+          newStats[index].change = sensor.unit;
+        }
+      });
 
       setStats(newStats);
     }
-  }, [loading, error, success, sensor, dispatch]);
+  }, [loading, error, success, sensors, dispatch]);
 
   return (
     <>
