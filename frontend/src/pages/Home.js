@@ -172,6 +172,7 @@ export default function Home() {
   // Fetch sensor details, from Redux store
   const sensorDetails = useSelector((state) => state.sensorDetails);
   const { loading, error, success, sensor } = sensorDetails;
+  console.log(sensor);
 
   // Dispatch sensor details
   const dispatch = useDispatch();
@@ -187,7 +188,7 @@ export default function Home() {
       newStats[0].name = sensor[0].name; // Update name
       newStats[0].value = sensor[0].value; // Update value
       newStats[0].change = sensor[0].unit; // Update unit
-      // Assign newStats to stats
+
       setStats(newStats);
     }
   }, [loading, error, success, sensor, dispatch]);
