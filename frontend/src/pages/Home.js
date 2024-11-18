@@ -17,7 +17,7 @@ import {
   PlusSmallIcon,
 } from '@heroicons/react/20/solid';
 import { BellIcon, XMarkIcon } from '@heroicons/react/24/outline';
-import { detailsSensor } from '../actions/sensorActions';
+import { detailsSensor, listSensors } from '../actions/sensorActions';
 import { useSelector } from 'react-redux';
 
 const navigation = [
@@ -173,6 +173,15 @@ export default function Home() {
   const sensorDetails = useSelector((state) => state.sensorDetails);
   const { loading, error, success, sensor } = sensorDetails;
   console.log(sensor);
+  // Fetch all data from sensor1 table
+  const sensorList = useSelector((state) => state.sensorList);
+  const {
+    loading: loadingSensors,
+    error: errorSensors,
+    success: successSensors,
+    sensors,
+  } = sensorList;
+  console.log(sensors);
 
   // Dispatch sensor details
   const dispatch = useDispatch();
@@ -180,6 +189,7 @@ export default function Home() {
   useEffect(() => {
     if (!success && !loading && !error) {
       dispatch(detailsSensor('sensor1'));
+      dispatch(listSensors());
     }
     if (success) {
       setData(sensor);
@@ -283,6 +293,98 @@ export default function Home() {
               <h2 className="mx-auto max-w-2xl text-base font-semibold text-gray-900 lg:mx-0 lg:max-w-none">
                 Registered data
               </h2>
+            </div>
+            <div className="mt-8 flow-root px-6">
+              <div className="-mx-4 -my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
+                <div className="inline-block min-w-full py-2 align-middle sm:px-6 lg:px-8">
+                  <table className="min-w-full divide-y divide-gray-300">
+                    <thead>
+                      <tr>
+                        <th
+                          scope="col"
+                          className="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-0"
+                        >
+                          ID
+                        </th>
+                        <th
+                          scope="col"
+                          className="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-0"
+                        >
+                          Name
+                        </th>
+                        <th
+                          scope="col"
+                          className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900"
+                        >
+                          Unit
+                        </th>
+                        <th
+                          scope="col"
+                          className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900"
+                        >
+                          Value
+                        </th>
+                        <th
+                          scope="col"
+                          className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900"
+                        >
+                          Last update
+                        </th>
+                        <th
+                          scope="col"
+                          className="relative py-3.5 pl-3 pr-4 sm:pr-0"
+                        >
+                          <span className="sr-only">Edit</span>
+                        </th>
+                      </tr>
+                    </thead>
+                    <tbody className="divide-y divide-gray-200 bg-white">
+                      {sensors.map((sensor) => (
+                        <tr key={sensor.id}>
+                          <td className="whitespace-nowrap py-5 pl-4 pr-3 text-sm sm:pl-0">
+                            <div className="flex items-center">
+                              <div className="ml-4">
+                                <div className="font-medium text-gray-900">
+                                  {sensor.id}
+                                </div>
+                              </div>
+                            </div>
+                          </td>
+                          <td className="whitespace-nowrap py-5 pl-4 pr-3 text-sm sm:pl-0">
+                            <div className="flex items-center">
+                              <div className="ml-4">
+                                <div className="font-medium text-gray-900">
+                                  {sensor.name}
+                                </div>
+                              </div>
+                            </div>
+                          </td>
+                          <td className="whitespace-nowrap px-3 py-5 text-sm text-gray-500">
+                            <span className="inline-flex items-center rounded-md bg-green-50 px-2 py-1 text-xs font-medium text-green-700 ring-1 ring-inset ring-green-600/20">
+                              {sensor.unit}
+                            </span>
+                          </td>
+                          <td className="whitespace-nowrap px-3 py-5 text-sm text-gray-500">
+                            <div className="text-gray-900">{sensor.value}</div>
+                          </td>
+                          <td className="whitespace-nowrap px-3 py-5 text-sm text-gray-500">
+                            {new Date(sensor.last_update).toLocaleString()}
+                          </td>
+                          <td className="relative whitespace-nowrap py-5 pl-3 pr-4 text-right text-sm font-medium sm:pr-0">
+                            <a
+                              href="#"
+                              className="text-indigo-600 hover:text-indigo-900"
+                            >
+                              Edit
+                              <span className="sr-only">, {sensor.name}</span>
+                            </a>
+                          </td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </div>
+              </div>
             </div>
             <div className="mt-6 overflow-hidden border-t border-gray-100">
               <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
