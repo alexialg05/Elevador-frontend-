@@ -15,7 +15,7 @@ export const listSensors = () => async (dispatch) => {
   try {
     dispatch({ type: SENSOR_LIST_REQUEST });
 
-    const { data } = await axios.get('/api/sensor/all1');
+    const { data } = await axios.get('/api/sensor/all');
 
     dispatch({
       type: SENSOR_LIST_SUCCESS,
